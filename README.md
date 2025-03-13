@@ -4,7 +4,7 @@ A benchmark dataset for evaluating spatial reasoning, association, and matching 
 
 ## Overview
 
-SpatialVLM-Bench provides a standardized way to assess how well Vision Language Models understand and reason about spatial relationships in images. The benchmark focuses on three key capabilities:
+DumbVLM-Bench provides a standardized way to assess how well Vision Language Models understand and reason about spatial relationships in images. The benchmark focuses on three key capabilities:
 
 1. **Spatial Reasoning**: Understanding relative positions and orientations of objects
 2. **Spatial Association**: Connecting objects based on spatial proximity or relationships
