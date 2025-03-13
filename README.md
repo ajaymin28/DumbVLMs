@@ -9,6 +9,7 @@ SpatialVLM-Bench provides a standardized way to assess how well Vision Language 
 1. **Spatial Reasoning**: Understanding relative positions and orientations of objects
 2. **Spatial Association**: Connecting objects based on spatial proximity or relationships
 3. **Spatial Matching**: Identifying corresponding objects or patterns across multiple images
+4. **Cross Modal Reasoning**: 
 
 ## Repository Structure
 
@@ -21,10 +22,10 @@ DumbVLMs/
 │   └── challenge_sets/         # Specialized test suites
 ├── benchmark/
 │   ├── tasks/                  # Task definitions
-│   │   ├── relative_position/  # "Is X to the left of Y?" tasks
-│   │   ├── distance_reasoning/ # "Which object is closer to X?" tasks  
-│   │   ├── spatial_grouping/   # "Which objects belong together?" tasks
-│   │   └── cross_modal_mapping/ # "Find the corresponding object" tasks
+│   │   ├── relative_position/  # "If Z were to be placed to the right of Y and between X and Z, Is X to the left of Y?" tasks
+│   │   ├── distance_reasoning/ # "If you were to place object B in the middle of A and C, Will it be closer to E or D ?" tasks  
+│   │   ├── spatial_grouping/   # "Which objects belong together ?" tasks
+│   │   └── cross_modal_mapping/ # "If A is mapped to T and B is mapped to E, what can C be mapped to ?" tasks
 │   ├── metrics/                # Evaluation metrics
 │   └── submissions/            # Example submission formatting
 ├── baselines/
@@ -116,26 +117,3 @@ The repository includes baseline implementations and results for:
 - Gemini Pro Vision
 - LLaVA
 - CogVLM
-
-## Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-## Citation
-
-If you use SpatialVLM-Bench in your research, please cite:
-
-```
-@misc{spatialvlmbench2025,
-  author = {Your Name},
-  title = {SpatialVLM-Bench: A Benchmark for Spatial Reasoning in Vision Language Models},
-  year = {2025},
-  publisher = {GitHub},
-  journal = {GitHub Repository},
-  url = {https://github.com/yourusername/SpatialVLM-Bench}
-}
-```
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
