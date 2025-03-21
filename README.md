@@ -82,30 +82,86 @@ results = BenchmarkSuite.evaluate(model, task_suite)
 Evaluator.generate_report(results, output_dir="./results")
 ```
 
-## Task Categories
+## Data Generation - 2D
 
-### 1. Relative Position Understanding
+Generate datasets using configuration files:
 
-Tests a model's ability to understand spatial relationships like "above," "below," "left of," "right of," "inside," "outside," etc.
+```bash
+python generate_2d_dataset.py --config configs/scenario1_shape_matching.yaml --output_dir output --seed 42
+```
 
-### 2. Distance Estimation
+### Command Line Arguments
 
-Evaluates how well models can judge relative distances between objects in a scene.
+- `--config`: Path to YAML configuration file (required)
+- `--output_dir`: Directory to save generated datasets (default: "benchmark_output")
+- `--seed`: Random seed for reproducibility (optional)
 
-### 3. Spatial Grouping
+## Scenarios
 
-Assesses models on grouping objects based on spatial proximity or arrangement patterns.
+### Scenario 1: Shape Matching
 
-### 4. Cross-Image Mapping
+Generates pairs of shapes (numbered in red, lettered in green) that need to be matched based on their geometric properties despite different positions and rotations.
 
-Tests the ability to find corresponding objects or regions across multiple images based on spatial configuration.
+#### Parameters:
 
-## Evaluation Metrics
+- `num_shapes`: Number of shapes to match (2-5)
+- `spatial_complexity`: Complexity of spatial arrangement
+  - `easy`: Simple column-based arrangement
+  - `medium`: Random placement clustered in the center
+  - `hard`: Random placement spread across the image
+- `rotation_degree`: Rotation settings
+  - `default`: No rotation
+  - `random`: Random rotation for each shape
+  - Custom angle (e.g., "90"): Fixed rotation angle applied to gallery shapes
 
-- **Accuracy**: Percentage of correct spatial relationship judgments
-- **Consistency**: Agreement of model predictions across variations of the same scene
-- **Robustness**: Performance under visual perturbations (lighting, viewpoint, occlusion)
-- **Fine-grained Analysis**: Breakdown of performance by relationship type and scene complexity
+#### Output:
+
+- Images with numbered red shapes and lettered green shapes
+- Ground truth matching files (no ground truth displayed in images)
+
+### Scenario 2: Rotation Reasoning
+
+Generates images with a single query shape and multiple gallery shapes, with prompts asking which gallery shape the query would match after rotation.
+
+#### Parameters:
+
+- `gallery_size`: Number of gallery shapes to include
+- `rotation_angles`: List of rotation angles to test (e.g., [90, 180, 270])
+
+#### Output:
+
+- Images with a query shape (red with "?") and gallery shapes (green with letters)
+- Prompt files with the question "If the shape in Red is rotated by X degrees, what shape would it match to?"
+- Ground truth files with the correct answer letter
+
+### Scenario 3: Odd One Out
+
+Generates sequences of shapes where one shape differs from the others based on a specific criterion.
+
+#### Parameters:
+
+- `sequence_length`: Number of shapes in the sequence
+- `oddity_criteria`: List of criteria for identifying the odd shape
+  - `shape`: Different number of sides
+  - `color`: Different color
+  - `rotation_angle`: Different rotation
+  - `size`: Different size
+
+#### Output:
+
+- Images with sequences of lettered shapes where one differs
+- Prompt files with the question "Pick the odd one out from the image. Give only the alphabet of the diagram as answer."
+- Ground truth files with the correct answer letter
+
+## Configuration Files
+
+Sample configuration files are provided in the `configs/` directory:
+
+- `scenario1_shape_matching.yaml`: Basic shape matching (easy difficulty)
+- `scenario1_shape_matching_medium.yaml`: Medium difficulty shape matching
+- `scenario1_shape_matching_hard.yaml`: Hard difficulty shape matching
+- `scenario2_rotation_reasoning.yaml`: Rotation reasoning task
+- `scenario3_odd_one_out.yaml`: Odd one out task
 
 ## Baselines
 

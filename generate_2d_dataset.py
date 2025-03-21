@@ -6,7 +6,7 @@ It supports different scenarios such as shape matching, rotation reasoning, and 
 
 import argparse
 import os
-import yaml
+import yaml 
 from tools.data_generation.Two_D import ShapeBenchmarkGenerator
 from tools.data_generation.Two_D import (
     ShapeMatchingScenario,
