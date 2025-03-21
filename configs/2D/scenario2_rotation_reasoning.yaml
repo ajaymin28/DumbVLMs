@@ -1,0 +1,16 @@
+scenario_type: "rotation_reasoning"
+scenario_name: "RotationReasoning"
+
+# Shape parameters
+gallery_size: 5   
+min_sides: 3
+max_sides: 9
+
+# Image parameters
+img_size: [1000, 800]
+colors: [["#FF5733", "#C70039"], ["#33FF57", "#0039C7"]]  # [Red, Green]
+
+num_samples: 5
+
+# Scenario-specific parameters
+rotation_angles: [90, 180, 270]

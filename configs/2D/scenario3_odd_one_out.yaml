@@ -1,0 +1,13 @@
+scenario_type: "odd_one_out"
+scenario_name: "OddOneOut"
+
+# Shape parameters
+sequence_length: 5  
+min_sides: 3
+max_sides: 8
+
+img_size: [1200, 600]
+
+num_samples: 5
+
+oddity_criteria: ["shape", "color", "rotation_angle", "size"]
