@@ -4,7 +4,7 @@ import random
 import numpy as np
 import math
 import string
-from shape_generator import ShapeBenchmarkGenerator
+from .shape_generator import ShapeBenchmarkGenerator
 
 class BaseScenario:
     """Base class for all scenario generators"""
