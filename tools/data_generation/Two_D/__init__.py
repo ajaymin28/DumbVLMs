@@ -1,0 +1,2 @@
+from .shape_generator import ShapeBenchmarkGenerator
+from .scenario_generator import ShapeMatchingScenario, RotationReasoningScenario, OddOneOutScenario
