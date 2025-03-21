@@ -117,12 +117,12 @@ class RotationReasoningScenario(BaseScenario):
         samples_info = []
         
         for sample_idx in range(num_samples):
-            sample_dir = os.path.join(self.scenario_dir, f"sample_{sample_idx:03d}")
-            os.makedirs(sample_dir, exist_ok=True)
+            # sample_dir = os.path.join(self.scenario_dir, f"sample_{sample_idx:03d}")
+            # os.makedirs(sample_dir, exist_ok=True)
             
             for rot_idx, rotation_angle in enumerate(rotation_angles):
-                rotation_dir = os.path.join(sample_dir, f"rotation_{rotation_angle}")
-                os.makedirs(rotation_dir, exist_ok=True)
+                # rotation_dir = os.path.join(sample_dir, f"rotation_{rotation_angle}")
+                # os.makedirs(rotation_dir, exist_ok=True)
                 
                 generator = ShapeBenchmarkGenerator(
                     num_shapes=gallery_size + 1,  # +1 for query shape
@@ -130,7 +130,7 @@ class RotationReasoningScenario(BaseScenario):
                     max_sides=max_sides,
                     img_size=img_size,
                     colors=colors,
-                    output_dir=rotation_dir,
+                    output_dir=self.scenario_dir,
                     spatial_complexity="easy",  
                     rotation_degree="default",
                     seed=self.seed + sample_idx + rot_idx if self.seed else None
@@ -193,16 +193,16 @@ class RotationReasoningScenario(BaseScenario):
                         'base_shape_id': base_shape_idx
                     })
                 
-                img_path = os.path.join(rotation_dir, "rotation_challenge.png")
+                img_path = os.path.join(self.scenario_dir, f"{sample_idx:03d}_{rotation_angle}.png")
                 img.save(img_path)
                 
-                prompt_path = os.path.join(rotation_dir, "prompt.txt")
+                prompt_path = os.path.join(self.scenario_dir, f"{sample_idx:03d}_{rotation_angle}_prompt.txt")
                 with open(prompt_path, 'w') as f:
-                    f.write(f"If the shape in Red is rotated by {rotation_angle} degrees, "
-                            f"what shape would it match to? Give a single alphabet answer.")
+                    f.write(f"If the shape in the Red is rotated by {rotation_angle} degrees, "
+                            f"what shape would it match to from the green shapes? Give a single alphabet answer.")
                 
                 correct_letter = alphabet[correct_gallery_idx]
-                gt_path = os.path.join(rotation_dir, "ground_truth.txt")
+                gt_path = os.path.join(self.scenario_dir, f"{sample_idx:03d}_{rotation_angle}_gt.txt")
                 with open(gt_path, 'w') as f:
                     f.write(f"{correct_letter}")
                 
@@ -259,27 +259,27 @@ class OddOneOutScenario(BaseScenario):
         
         for sample_idx in range(num_samples):
             for criterion in oddity_criteria:
-                criterion_dir = os.path.join(self.scenario_dir, f"sample_{sample_idx:03d}_{criterion}")
-                os.makedirs(criterion_dir, exist_ok=True)
+                # criterion_dir = os.path.join(self.scenario_dir, f"sample_{sample_idx:03d}_{criterion}")
+                # os.makedirs(criterion_dir, exist_ok=True)
                 
                 if criterion == "shape":
                     samples_info.append(self._generate_shape_oddity(
-                        criterion_dir, sample_idx, sequence_length, min_sides, max_sides, img_size
+                        self.scenario_dir, sample_idx, sequence_length, min_sides, max_sides, img_size
                     ))
                     
                 elif criterion == "color":
                     samples_info.append(self._generate_color_oddity(
-                        criterion_dir, sample_idx, sequence_length, min_sides, max_sides, img_size
+                        self.scenario_dir, sample_idx, sequence_length, min_sides, max_sides, img_size
                     ))
                     
                 elif criterion == "rotation_angle":
                     samples_info.append(self._generate_rotation_oddity(
-                        criterion_dir, sample_idx, sequence_length, min_sides, max_sides, img_size
+                        self.scenario_dir, sample_idx, sequence_length, min_sides, max_sides, img_size
                     ))
                     
                 elif criterion == "size":
                     samples_info.append(self._generate_size_oddity(
-                        criterion_dir, sample_idx, sequence_length, min_sides, max_sides, img_size
+                        self.scenario_dir, sample_idx, sequence_length, min_sides, max_sides, img_size
                     ))
                     
                 else:
@@ -456,15 +456,15 @@ class OddOneOutScenario(BaseScenario):
                 'vertices': vertices
             })
         
-        img_path = os.path.join(output_dir, "odd_one_out.png")
+        img_path = os.path.join(output_dir, f"{sample_idx:03d}_odd_one_out.png")
         img.save(img_path)
         
-        prompt_path = os.path.join(output_dir, "prompt.txt")
+        prompt_path = os.path.join(output_dir, f"{sample_idx:03d}_prompt.txt")
         with open(prompt_path, 'w') as f:
             f.write("Pick the odd one out from the image. Give only the alphabet of the diagram as answer.")
         
         correct_letter = alphabet[odd_position]
-        gt_path = os.path.join(output_dir, "ground_truth.txt")
+        gt_path = os.path.join(output_dir, f"{sample_idx:03d}_gt.txt")
         with open(gt_path, 'w') as f:
             f.write(f"{correct_letter}")
         

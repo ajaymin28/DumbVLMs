@@ -1,0 +1,14 @@
+scenario_type: "shape_matching"
+scenario_name: "ShapeMatchingMedium"
+
+num_shapes: 3
+min_sides: 3
+max_sides: 8
+
+img_size: [1000, 800]
+colors: [["#FF5733", "#C70039"], ["#33FF57", "#0039C7"]]  # [Red, Green]
+
+num_samples: 10
+
+spatial_complexity: "medium"     # Randomly spread across the image
+rotation_degree: "45"          # Consistent 90-degree rotation for gallery shapes

@@ -406,8 +406,8 @@ class ShapeBenchmarkGenerator:
         samples_info = []
         
         for sample_idx in range(num_samples):
-            sample_dir = os.path.join(self.output_dir, f"sample_{sample_idx:03d}")
-            os.makedirs(sample_dir, exist_ok=True)
+            # sample_dir = os.path.join(self.output_dir, f"sample_{sample_idx:03d}")
+            # os.makedirs(sample_dir, exist_ok=True)
             
             base_shapes = self.generate_base_shapes()
             
@@ -433,17 +433,18 @@ class ShapeBenchmarkGenerator:
                 base_shapes, query_positions, gallery_positions
             )
             
-            output_path = os.path.join(sample_dir, "sample.png")
+            # jaimin: instead of samples folder just keep one folder different file names 
+            output_path = os.path.join(self.output_dir, f"{sample_idx:03d}.png")
             img.save(output_path)
             
             if include_ground_truth_in_image:
-                hq_output_path = os.path.join(sample_dir, "sample_high_quality.png")
+                hq_output_path = os.path.join(self.output_dir, f"{sample_idx:03d}_hq_with_gt.png")
                 self.render_high_quality_image(hq_output_path, query_shapes, gallery_shapes, matchings)
             else:
-                hq_output_path = os.path.join(sample_dir, "sample_high_quality.png")
+                hq_output_path = os.path.join(self.output_dir, f"{sample_idx:03d}_hq.png")
                 self.render_high_quality_image(hq_output_path, query_shapes, gallery_shapes)
             
-            gt_output_path = os.path.join(sample_dir, "ground_truth.txt")
+            gt_output_path = os.path.join(self.output_dir, f"{sample_idx:03d}_gt.txt")
             self.save_ground_truth(gt_output_path, matchings)
             
             samples_info.append({
