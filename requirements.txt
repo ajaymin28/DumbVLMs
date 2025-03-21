@@ -1,0 +1,4 @@
+git+https://github.com/huggingface/transformers.git
+accelerate
+git+https://github.com/LLaVA-VL/LLaVA-NeXT.git
+qwen-vl-utils[decord]==0.0.8
