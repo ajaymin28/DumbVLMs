@@ -36,6 +36,8 @@ class Evaluator:
         """
         dataset = task_loader.get_dataset()
 
+        
+
         if self.model is None:
             raise ValueError("Model not initialized. Please check the model name during initialization.")
         
