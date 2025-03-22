@@ -456,7 +456,7 @@ class OddOneOutScenario(BaseScenario):
                 'vertices': vertices
             })
         
-        img_path = os.path.join(output_dir, f"{sample_idx:03d}_odd_one_out.png")
+        img_path = os.path.join(output_dir, f"{sample_idx:03d}.png")
         img.save(img_path)
         
         prompt_path = os.path.join(output_dir, f"{sample_idx:03d}_prompt.txt")
