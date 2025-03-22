@@ -1,4 +1,4 @@
-from baselines.models import ModelInferenceEngine
+from baselines.models.ModelInferenceEngine import ModelInferenceEngine
 
 try:
     from llava.model.builder import load_pretrained_model
@@ -38,10 +38,10 @@ class LLAVA_OV(ModelInferenceEngine):
 
         pretrained = "lmms-lab/llava-onevision-qwen2-0.5b-ov"
         model_name = "llava_qwen"
-        self.tokenizer, self.model, self.image_processor, self.max_length = load_pretrained_model(pretrained, None, model_name, device_map=self.device_map, attn_implementation=None)  # disable flash_attn for colab since T4 is not supported.
+        self.tokenizer, self.model, self.image_processor, self.max_length = load_pretrained_model(pretrained, None, model_name, device_map=device, attn_implementation=None)  # disable flash_attn for colab since T4 is not supported.
         self.model.eval()
         self.max_tokens = max_tokens
-        self.device = device
+        
 
         super(LLAVA_OV, self).__init__(self.model, self.tokenizer, temperature, max_tokens, device)
 
